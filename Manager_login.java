@@ -22,7 +22,10 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 
 public class Manager_login extends Application  {
-    Main_page m;
+    static Main_page m;
+    static Manager_login M;
+    static Manage1 M1;
+    signup_M p;
     public Manager_login(Main_page m){
         this.m=m;
     }
@@ -41,9 +44,9 @@ public class Manager_login extends Application  {
         Button Submit=new Button("SUBMIT");
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
-        	{
-        			System.out.println(login_ID.getText());
-                    System.out.println(passwd.getText());
+        	{		
+        			M1 = new Manage1(m);
+        			M1.start(primaryStage);
         	}
         });
         Button back=new Button("BACK");
@@ -57,7 +60,8 @@ public class Manager_login extends Application  {
         nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
             public void handle (MouseEvent event)
             {
-                System.out.println("naya hai ye");
+            	 p = new signup_M(M);
+                 p.start(primaryStage);
             }
         });
         GridPane root = new GridPane(); 
@@ -87,7 +91,7 @@ public class Manager_login extends Application  {
    */ 
     public static void main(String[] args) {
    
-  
+    	M = new Manager_login(m);
         launch(args);
     }
     

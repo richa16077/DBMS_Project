@@ -1,3 +1,4 @@
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +23,10 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 
 public class Trainer_login extends Application  {
-    Main_page m;
+    static Main_page m;
+    static Trainer_login t;
+    signup_T p;
+    
     public Trainer_login(Main_page m){
         this.m=m;
     }
@@ -31,18 +35,21 @@ public class Trainer_login extends Application  {
         primaryStage.setTitle("Hello Trainer");	
         Text Welcome = new Text("WELCOME Trainer");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        Text ID = new Text("Login ID : ");
+        
+        Text ID = new Text("Trainer ID : ");
         TextField login_ID=new TextField();
         login_ID.setPromptText("Enter Your ID here");
-        Text Pass = new Text("Password : ");
-        PasswordField passwd=new PasswordField();
-        passwd.setPromptText("Enter Your Password here");
+        
+//        Text Pass = new Text("Password : ");
+//        PasswordField passwd=new PasswordField();
+//        passwd.setPromptText("Enter Your Password here");
+        
         Button Submit=new Button("SUBMIT");
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
         			System.out.println(login_ID.getText());
-                    System.out.println(passwd.getText());
+                    //System.out.println(passwd.getText());
         	}
         });
         Button back=new Button("BACK");
@@ -56,7 +63,8 @@ public class Trainer_login extends Application  {
         nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
             public void handle (MouseEvent event)
             {
-                System.out.println("naya hai ye");
+            	 p = new signup_T(t);
+                 p.start(primaryStage);
             }
         });
         GridPane root = new GridPane(); 
@@ -66,8 +74,8 @@ public class Trainer_login extends Application  {
         root.add(Welcome,1,2);
         root.add(ID,1,3);
         root.add(login_ID,2,3);
-        root.add(Pass,1,4);
-        root.add(passwd,2,4);
+//        root.add(Pass,1,4);
+//        root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
         root.add(nuser,3,5);
@@ -86,7 +94,7 @@ public class Trainer_login extends Application  {
    */ 
     public static void main(String[] args) {
    
-  
+    	t = new Trainer_login(m);
         launch(args);
     }
     

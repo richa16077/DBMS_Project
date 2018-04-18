@@ -31,11 +31,12 @@ static Main_page m;
         primaryStage.setTitle("GYM Manager");	
         Text Welcome = new Text("WELCOME!!");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
-        Button Customer=new Button("Customer");
+        Button Customer=new Button("CUSTOMER");
         Customer.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
         			cust=new Customer_login(m);
+        			cust.c = cust;
         			cust.start(primaryStage);
         	}
         });
@@ -44,6 +45,7 @@ static Main_page m;
         	public void handle (MouseEvent event)
         	{
         		manage=new Manager_login(m);
+        		manage.M = manage;
         		manage.start(primaryStage);
         	}
         });
@@ -52,19 +54,20 @@ static Main_page m;
         	public void handle (MouseEvent event)
         	{
         			train=new Trainer_login(m);
+        			train.t = train;
         			train.start(primaryStage);
         	}
         });
         GridPane root = new GridPane(); 
         root.setPadding(new Insets(10, 10, 5, 5));
-        root.setVgap(5); 
-        root.setHgap(5);    
-        root.add(Welcome,1,2);
-        root.add(Customer,1,3);
-        root.add(Manager,2,3);
-        root.add(Trainer,1,4);
+        root.setVgap(1); 
+        root.setHgap(8);    
+        root.add(Welcome,2,0);
+        root.add(Customer,1,1);
+        root.add(Manager,2,1);
+        root.add(Trainer,3,1);
         root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root,450,200);
+        Scene scene = new Scene(root,550,150);
         
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);

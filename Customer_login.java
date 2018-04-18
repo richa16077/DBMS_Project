@@ -22,7 +22,10 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 
 public class Customer_login extends Application  {
-    Main_page m;
+	signup_page p;
+    static Main_page m;
+    static Customer_login c;
+    
     public Customer_login(Main_page m){
         this.m=m;
     }
@@ -35,15 +38,15 @@ public class Customer_login extends Application  {
         Text ID = new Text("Login ID : ");
         TextField login_ID=new TextField();
         login_ID.setPromptText("Enter Your ID here");
-        Text Pass = new Text("Password : ");
-        PasswordField passwd=new PasswordField();
-        passwd.setPromptText("Enter Your Password here");
+        //Text Pass = new Text("Password : ");
+        //PasswordField passwd=new PasswordField();
+        //passwd.setPromptText("Enter Your Password here");
         Button Submit=new Button("SUBMIT");
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
         			System.out.println(login_ID.getText());
-                    System.out.println(passwd.getText());
+                    //System.out.println(passwd.getText());
         	}
         });
         Button back=new Button("BACK");
@@ -57,7 +60,8 @@ public class Customer_login extends Application  {
         nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
             public void handle (MouseEvent event)
             {
-                System.out.println("naya hai ye");
+                p = new signup_page(c);
+                p.start(primaryStage);
             }
         });
         GridPane root = new GridPane(); 
@@ -67,8 +71,8 @@ public class Customer_login extends Application  {
         root.add(Welcome,1,2);
         root.add(ID,1,3);
         root.add(login_ID,2,3);
-        root.add(Pass,1,4);
-        root.add(passwd,2,4);
+        //root.add(Pass,1,4);
+        //root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
         root.add(nuser,3,5);
@@ -87,7 +91,7 @@ public class Customer_login extends Application  {
    */ 
     public static void main(String[] args) {
    
-  
+    	c = new Customer_login(m);
         launch(args);
     }
     
