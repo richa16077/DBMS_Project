@@ -21,7 +21,7 @@ public class Manage1 extends Application{
 	
 	static Main_page m;
 	static Manage1 M1;
-	
+	static ViewRequest vr;
     public Manage1(Main_page m){
         this.m=m;
     }
@@ -57,14 +57,8 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
 	        		
-//        			Text VR1 = new Text("Requests");
-//        			VR1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
-        			Alert alert = new Alert(AlertType.INFORMATION);
-        			alert.setTitle("Hello Manager");
-        			alert.setHeaderText("Customer Requests");
-        			alert.setContentText("The requests are as follows:");
+            vr=new ViewRequest();
         			
-        			alert.showAndWait();
         			
         	}
         });
@@ -162,7 +156,7 @@ public class Manage1 extends Application{
    */ 
     public static void main(String[] args) {
    
-    	M1 = new Manage1(m);
+    	
         launch(args);
     }
     
