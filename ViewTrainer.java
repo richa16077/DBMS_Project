@@ -23,6 +23,7 @@ public class ViewTrainer extends Application{
 
 	static Manage1 M1;
 	static ViewTrainer T;
+	static submitT ST;
 	
 	public ViewTrainer(Manage1 M1)
 	{
@@ -45,8 +46,9 @@ public class ViewTrainer extends Application{
        Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-	        		
-
+	        	ST = new submitT(T);
+	        	ST.st = ST;
+	        	ST.start(primaryStage);
        	}
        });
        

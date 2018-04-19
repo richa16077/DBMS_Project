@@ -23,6 +23,7 @@ public class ViewCustomer extends Application{
 	
 	static Manage1 M1;
 	static ViewCustomer C;
+	static submit S;
 	
 	public ViewCustomer(Manage1 M1) {
 		this.M1 = M1;
@@ -44,7 +45,9 @@ public class ViewCustomer extends Application{
        Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-	        		
+	        	S = new submit(C);
+	        	S.s = S;
+	        	S.start(primaryStage);
 
        	}
        });

@@ -23,6 +23,7 @@ public class ViewEquip extends Application{
 	
 	static Manage1 M1;
 	static ViewEquip E;
+	static submitE SE;
 	
 	public ViewEquip(Manage1 M1)
 	{
@@ -45,7 +46,9 @@ public class ViewEquip extends Application{
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-	        		
+	        		SE = new submitE(E);
+	        		SE.se = SE;
+	        		SE.start(primaryStage);
 
         	}
         });
