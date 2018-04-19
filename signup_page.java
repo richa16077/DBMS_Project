@@ -22,7 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import java.io.*;
 
-
 public class signup_page extends Application{
 	
 	static Customer_login c;
@@ -33,8 +32,8 @@ public class signup_page extends Application{
 		
 		this.c = c;
 	}
-	String request="";
-        int Eid=1003;
+	
+
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -63,9 +62,7 @@ public class signup_page extends Application{
         button1.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		Eid=Eid+1;
-                        request=(NAME.getText()+" "+Eid+" "+java.time.LocalDate.now());
-
+        		System.out.println(NAME.getText());
         	}
         });
         

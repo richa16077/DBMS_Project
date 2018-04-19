@@ -25,7 +25,7 @@ public class Manager_login extends Application  {
     static Main_page m;
     static Manager_login M;
     static Manage1 M1;
-    signup_M p;
+    //signup_M p;
     public Manager_login(Main_page m){
         this.m=m;
     }
@@ -46,6 +46,7 @@ public class Manager_login extends Application  {
         	public void handle (MouseEvent event)
         	{		
         			M1 = new Manage1(m);
+        			M1.M1 = M1;
         			M1.start(primaryStage);
         	}
         });
@@ -56,14 +57,14 @@ public class Manager_login extends Application  {
         		m.start(primaryStage);
         	}
         });
-         Button nuser=new Button("Sign up");
-        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            public void handle (MouseEvent event)
-            {
-            	 p = new signup_M(M);
-                 p.start(primaryStage);
-            }
-        });
+//         Button nuser=new Button("Sign up");
+//        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
+//            public void handle (MouseEvent event)
+//            {
+//            	 p = new signup_M(M);
+//                 p.start(primaryStage);
+//            }
+//        });
         GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
@@ -75,7 +76,7 @@ public class Manager_login extends Application  {
         root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
-        root.add(nuser,3,5);
+        //root.add(nuser,3,5);
         root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root,700,200);
         

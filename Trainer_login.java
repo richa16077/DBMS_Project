@@ -25,7 +25,7 @@ import java.io.*;
 public class Trainer_login extends Application  {
     static Main_page m;
     static Trainer_login t;
-    signup_T p;
+   // signup_T p;
     
     public Trainer_login(Main_page m){
         this.m=m;
@@ -59,14 +59,14 @@ public class Trainer_login extends Application  {
         		m.start(primaryStage);
         	}
         });
-         Button nuser=new Button("Sign up");
-        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            public void handle (MouseEvent event)
-            {
-            	 p = new signup_T(t);
-                 p.start(primaryStage);
-            }
-        });
+//         Button nuser=new Button("Sign up");
+//        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
+//            public void handle (MouseEvent event)
+//            {
+//            	 p = new signup_T(t);
+//                 p.start(primaryStage);
+//            }
+//        });
         GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
@@ -78,7 +78,7 @@ public class Trainer_login extends Application  {
 //        root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
-        root.add(nuser,3,5);
+        //root.add(nuser,3,5);
         root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root,600,200);
         

@@ -21,7 +21,12 @@ public class Manage1 extends Application{
 	
 	static Main_page m;
 	static Manage1 M1;
-	static ViewRequest vr;
+	static ViewRequest V_R;
+	static ViewEquip V_E;
+	static ViewTrainer V_T;
+	static ViewCustomer V_C;
+	static Modify MY;
+	
     public Manage1(Main_page m){
         this.m=m;
     }
@@ -57,8 +62,10 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
 	        		
-            vr=new ViewRequest();
-        			
+        		V_R = new ViewRequest(M1);
+        		V_R.R = V_R;
+        		V_R.start(primaryStage);
+        		
         			
         	}
         });
@@ -66,14 +73,9 @@ public class Manage1 extends Application{
         VE.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		TextInputDialog dialog = new TextInputDialog("Equipments");
-        		dialog.setTitle("Equipment Menu");
-        		dialog.setHeaderText("Choose an option");
-        		dialog.setContentText("Please enter EID:");
-        		
-        		Optional<String> result = dialog.showAndWait();
-        		result.ifPresent(name -> System.out.println("Your name: " + name));
-        		
+        		V_E = new ViewEquip(M1);
+        		V_E.E = V_E;
+        		V_E.start(primaryStage);
         		
         			
         	}
@@ -82,36 +84,27 @@ public class Manage1 extends Application{
         VT.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Hello Manager");
-    			alert.setHeaderText("Trainers");
-    			alert.setContentText("The requests are as follows:");
-    			
-    			alert.showAndWait();
+        		V_T = new ViewTrainer(M1);
+        		V_T.T= V_T;
+        		V_T.start(primaryStage);
         	}
         });
         
         VC.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Hello Manager");
-    			alert.setHeaderText("Customers:");
-    			alert.setContentText("The requests are as follows:");
-    			
-    			alert.showAndWait();
+        		V_C = new ViewCustomer(M1);
+        		V_C.C = V_C;
+        		V_C.start(primaryStage);
         	}
         });
         
         modify.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Hello Manager");
-    			alert.setHeaderText("Modifications");
-    			alert.setContentText("What do you want to modify?");
-    			
-    			alert.showAndWait();
+        		MY = new Modify(M1);
+        		MY.my = MY;
+        		MY.start(primaryStage);
         			
         	}
         });
@@ -156,7 +149,7 @@ public class Manage1 extends Application{
    */ 
     public static void main(String[] args) {
    
-    	
+    	M1 = new Manage1(m);
         launch(args);
     }
     
