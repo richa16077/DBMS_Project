@@ -17,14 +17,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.util.Optional;
-
+import java.sql.*;
 
 public class ViewCustomer extends Application{
 	
 	static Manage1 M1;
 	static ViewCustomer C;
 	static submit S;
-	
 	public ViewCustomer(Manage1 M1) {
 		this.M1 = M1;
 	}
@@ -45,10 +44,10 @@ public class ViewCustomer extends Application{
        Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-	        	S = new submit(C);
-	        	S.s = S;
-	        	S.start(primaryStage);
-
+	        		
+                  S = new submit(C);
+                  S.s = S;
+                  
        	}
        });
        
@@ -67,7 +66,7 @@ public class ViewCustomer extends Application{
        
        Button printall = new Button("PrintAll");
        
-       Button MonthWise = new Button("Month Wise");
+       Button MonthWise = new Button("TOTAL");
        
        //Button NotWorking = new Button("Not Working");
        
@@ -75,16 +74,31 @@ public class ViewCustomer extends Application{
      
        CID.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
-       	{
+       	{   
+                  try{
 	        		
+                  S = new submit(C,cid.getText());
+                  S.s = S;
+                  S.start(primaryStage);
+                  }
+                  catch(SQLException e){
 
+                  }
        	}
        });
        
        printall.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-       		
+                  try{
+       		S = new submit(C);
+                  S.s = S;
+                  S.start(primaryStage);
+            }
+            catch(SQLException e){
+
+                  }
+
        			
        	}
        });
@@ -92,7 +106,14 @@ public class ViewCustomer extends Application{
        MonthWise.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-       		
+                  try{
+       		S = new submit(C,"month");
+                  S.s = S;
+                  S.start(primaryStage);
+            }
+            catch(SQLException e){
+
+                  }
        			
        	}
        });

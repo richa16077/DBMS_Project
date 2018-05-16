@@ -34,12 +34,13 @@ public class submitE extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) {
-   	 	
+   	 	Connection conn = DriverManager.getConnection( "jdbc:mysql://localhost:3306/GYMMANAGEMENT", "root", "suyashsingh27");
+        Statement stmnt=conn.createStatement();
 		GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
         root.setHgap(5); 
-        
+        String otpt="";
         primaryStage.setTitle("Details:");	
         Text Welcome = new Text("Details: ");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));

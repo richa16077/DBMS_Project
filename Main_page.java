@@ -20,11 +20,13 @@ import javafx.stage.Stage;
 import javafx.scene.control.*; 
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import java.sql.*;
 
 public class Main_page extends Application  {
 Customer_login cust;
 Trainer_login train;
 Manager_login manage;
+String request;
 static Main_page m;
     @Override
     public void start(Stage primaryStage) {
@@ -35,16 +37,22 @@ static Main_page m;
         Customer.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
+                try{
         			cust=new Customer_login(m);
         			cust.c = cust;
         			cust.start(primaryStage);
+                }
+               catch(SQLException ex) {
+         ex.printStackTrace();
+      }
         	}
         });
+        System.out.println(request);
         Button Manager=new Button("MANAGER");
         Manager.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		manage=new Manager_login(m);
+        		manage=new Manager_login(m,request);
         		manage.M = manage;
         		manage.start(primaryStage);
         	}
@@ -52,10 +60,13 @@ static Main_page m;
         Button Trainer=new Button("TRAINER");
         Trainer.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
-        	{
+        	{  
+                try{
         			train=new Trainer_login(m);
         			train.t = train;
         			train.start(primaryStage);
+                }
+                catch(SQLException ex){}
         	}
         });
         GridPane root = new GridPane(); 

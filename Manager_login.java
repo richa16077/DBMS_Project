@@ -20,14 +20,18 @@ import javafx.stage.Stage;
 import javafx.scene.control.*; 
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import java.sql.*;
+import javafx.scene.control.Alert.AlertType;
 
 public class Manager_login extends Application  {
     static Main_page m;
     static Manager_login M;
     static Manage1 M1;
-    //signup_M p;
-    public Manager_login(Main_page m){
+    String str;
+    signup_M p;
+    public Manager_login(Main_page m,String str){
         this.m=m;
+        this.str=str;
     }
 
     @Override
@@ -45,9 +49,20 @@ public class Manager_login extends Application  {
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{		
-        			M1 = new Manage1(m);
-        			M1.M1 = M1;
-        			M1.start(primaryStage);
+                    System.out.println(login_ID.getText());
+                    System.out.println(passwd.getText());
+        			if (login_ID.getText().equals("5000") && passwd.getText().equals("admin")) {
+                    M1 = new Manage1(m,str);
+                    M1.M1 = M1;
+                    M1.start(primaryStage);   
+                    }
+                    else{
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Wrong ID or Password!!!");
+                    alert.showAndWait();
+                    }
         	}
         });
         Button back=new Button("BACK");
@@ -57,14 +72,7 @@ public class Manager_login extends Application  {
         		m.start(primaryStage);
         	}
         });
-//         Button nuser=new Button("Sign up");
-//        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
-//            public void handle (MouseEvent event)
-//            {
-//            	 p = new signup_M(M);
-//                 p.start(primaryStage);
-//            }
-//        });
+         
         GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
@@ -76,7 +84,6 @@ public class Manager_login extends Application  {
         root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
-        //root.add(nuser,3,5);
         root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root,700,200);
         
@@ -92,7 +99,7 @@ public class Manager_login extends Application  {
    */ 
     public static void main(String[] args) {
    
-    	M = new Manager_login(m);
+    
         launch(args);
     }
     

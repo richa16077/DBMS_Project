@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +20,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.*; 
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import java.sql.*;
+
 
 public class signup_page extends Application{
 	
@@ -32,12 +33,16 @@ public class signup_page extends Application{
 		
 		this.c = c;
 	}
-	
-
+	String request="";
+        int Eid;
 	
 	@Override
-	public void start(Stage primaryStage) {
-		
+	public void start(Stage primaryStage) throws SQLException{
+                Connection conn = DriverManager.getConnection( "jdbc:mysql://localhost:3306/GYMMANAGEMENT", "root", "suyashsingh27");
+                Statement stmnt=conn.createStatement();
+		ResultSet rset = stmnt.executeQuery("select Max(EnrollmentID) from customer;");
+                rset.next();
+                Eid=rset.getInt("Max(EnrollmentID)");
 		primaryStage.setTitle("Create New Account");
 		Text Welcome = new Text("WELCOME");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -62,7 +67,20 @@ public class signup_page extends Application{
         button1.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        		System.out.println(NAME.getText());
+        		++Eid;
+                        if (rb1.isSelected()) {
+                                request=NAME.getText()+" "+Eid+" "+java.time.LocalDate.now()+"  Package 1";
+                        }
+                        else if (rb2.isSelected()) {
+                                request=NAME.getText()+" "+Eid+" "+java.time.LocalDate.now()+"  Package 1";
+                         }
+                        else{
+                                request=NAME.getText()+" "+Eid+ " "+java.time.LocalDate.now()+"  Package 1";
+                        }
+                        
+                        c.m.request=request;
+                        c.m.start(primaryStage);
+
         	}
         });
         
@@ -70,7 +88,13 @@ public class signup_page extends Application{
         button2.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
+                        try{
+                        c.c=c;
         		c.start(primaryStage);
+                }
+                catch(SQLException ex){
+
+                }
         	}
         });
         

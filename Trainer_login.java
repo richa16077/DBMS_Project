@@ -1,4 +1,4 @@
-
+import java.sql.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,21 +21,24 @@ import javafx.stage.Stage;
 import javafx.scene.control.*; 
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import javafx.scene.control.Alert.AlertType;
 
 public class Trainer_login extends Application  {
     static Main_page m;
     static Trainer_login t;
-   // signup_T p;
-    
+    static Trainer_page cust;
+    int flag=0;
     public Trainer_login(Main_page m){
         this.m=m;
     }
+    String EnrID;
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
         primaryStage.setTitle("Hello Trainer");	
         Text Welcome = new Text("WELCOME Trainer");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        
+        Connection conn = DriverManager.getConnection( "jdbc:mysql://localhost:3306/GYMMANAGEMENT", "root", "suyashsingh27");
+        Statement stmnt=conn.createStatement();
         Text ID = new Text("Trainer ID : ");
         TextField login_ID=new TextField();
         login_ID.setPromptText("Enter Your ID here");
@@ -48,8 +51,41 @@ public class Trainer_login extends Application  {
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	public void handle (MouseEvent event)
         	{
-        			System.out.println(login_ID.getText());
-                    //System.out.println(passwd.getText());
+        			try{
+                    EnrID=(login_ID.getText());
+                    if (!EnrID.substring(0,1).equals("4")) {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Wrong Login ID");
+                        alert.showAndWait();
+                    }
+                    else{
+                    String qry="select T.Name,T.trainerID,T.salary,P.Type from Trainer T,handles H,Package P where T.trainerID=H.trainerID and H.PackID=P.PackID and T.trainerID = ";
+                    qry=qry+EnrID + ";";
+                    ResultSet rset = stmnt.executeQuery(qry);
+                    while(rset.next()) {
+                        String name=rset.getString("Name");
+                        String trainerID=rset.getString("trainerID");
+                        String Salary=rset.getString("salary");
+                        String Type=rset.getString("Type");
+                        String otpt=("NAME OF USER: "+name+"\n EnrollmentID: "+trainerID+"\n StartDate: "+Salary+"\n Package Type : "+Type);
+                        cust=new Trainer_page(otpt,t);
+                        cust.start(primaryStage);
+                        flag=1;
+                    }
+                     if (flag==0) {
+                                                Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Wrong Login ID");
+                        alert.showAndWait();
+                    }
+                }
+              } 
+                catch(SQLException ex) {
+         ex.printStackTrace();
+      }   
         	}
         });
         Button back=new Button("BACK");
@@ -59,14 +95,7 @@ public class Trainer_login extends Application  {
         		m.start(primaryStage);
         	}
         });
-//         Button nuser=new Button("Sign up");
-//        nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
-//            public void handle (MouseEvent event)
-//            {
-//            	 p = new signup_T(t);
-//                 p.start(primaryStage);
-//            }
-//        });
+         
         GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
@@ -78,7 +107,6 @@ public class Trainer_login extends Application  {
 //        root.add(passwd,2,4);
         root.add(Submit,1,5);
         root.add(back,2,5);
-        //root.add(nuser,3,5);
         root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root,600,200);
         

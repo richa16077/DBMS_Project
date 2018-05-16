@@ -20,19 +20,25 @@ import javafx.stage.Stage;
 import javafx.scene.control.*; 
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import java.sql.*;
+import javafx.scene.control.Alert.AlertType;
 
 public class Customer_login extends Application  {
 	signup_page p;
     static Main_page m;
     static Customer_login c;
-    
+    static Customer_page cust;
+    int flag=0;
     public Customer_login(Main_page m){
         this.m=m;
     }
-
+    String EnrID;
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello Customer");	
+    public void start(Stage primaryStage) throws SQLException {
+        
+        Connection conn = DriverManager.getConnection( "jdbc:mysql://localhost:3306/GYMMANAGEMENT", "root", "suyashsingh27");
+        Statement stmnt=conn.createStatement();
+         primaryStage.setTitle("Hello Customer");	
         Text Welcome = new Text("WELCOME USER");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         Text ID = new Text("Login ID : ");
@@ -43,10 +49,45 @@ public class Customer_login extends Application  {
         //passwd.setPromptText("Enter Your Password here");
         Button Submit=new Button("SUBMIT");
         Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
-        	public void handle (MouseEvent event)
+        	public void handle (MouseEvent event) 
         	{
-        			System.out.println(login_ID.getText());
-                    //System.out.println(passwd.getText());
+                try{
+        			EnrID=(login_ID.getText());
+                    System.out.println(EnrID);
+                    if (!EnrID.substring(0,1).equals("1")) {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Wrong Login ID");
+                        alert.showAndWait();
+                    }
+                    else{
+
+                    String qry="select C.Name,C.EnrollmentID,C.StartDate,P.Type from customer C,has_opted H,Package P where C.EnrollmentID=H.EnrollmentID and H.PackID=P.PackID and C.EnrollmentID = ";
+                    qry=qry+EnrID + ";";
+                    ResultSet rset = stmnt.executeQuery(qry);
+                    while(rset.next()) {
+                        String name=rset.getString("Name");
+                        String EnrollmentID=rset.getString("EnrollmentID");
+                        String StartDate=rset.getString("StartDate");
+                        String Type=rset.getString("Type");
+                        String otpt=("NAME OF USER: "+name+"\n EnrollmentID: "+EnrollmentID+"\n StartDate: "+StartDate+"\n Package Type : "+Type);
+                        cust=new Customer_page(otpt,c);
+                        cust.start(primaryStage);
+                        flag=1;
+                    }
+                    if (flag==0) {
+                         Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Wrong Login ID");
+                        alert.showAndWait();
+                    }
+                }
+              } 
+                catch(SQLException ex) {
+         ex.printStackTrace();
+      }   
         	}
         });
         Button back=new Button("BACK");
@@ -60,8 +101,14 @@ public class Customer_login extends Application  {
         nuser.setOnMouseClicked(new EventHandler<MouseEvent>(){
             public void handle (MouseEvent event)
             {
+              try{
                 p = new signup_page(c);
+                
                 p.start(primaryStage);
+            }
+            catch(SQLException e){
+                
+            }
             }
         });
         GridPane root = new GridPane(); 

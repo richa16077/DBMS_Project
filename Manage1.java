@@ -17,18 +17,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.util.Optional;
+import java.sql.*;
+
 public class Manage1 extends Application{
 	
 	static Main_page m;
 	static Manage1 M1;
 	static ViewRequest V_R;
-	static ViewEquip V_E;
-	static ViewTrainer V_T;
-	static ViewCustomer V_C;
-	static Modify MY;
-	
-    public Manage1(Main_page m){
+    static ViewEquip V_E;
+    static ViewTrainer V_T;
+    static ViewCustomer V_C;
+    static Modify MY;
+    String req;
+    public Manage1(Main_page m, String req){
         this.m=m;
+        this.req=req;
     }
     
     @Override
@@ -42,14 +45,7 @@ public class Manage1 extends Application{
         Text Welcome = new Text("WELCOME MANAGER");
         Welcome.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         
-//        Text ID = new Text("Trainer ID : ");
-//        TextField login_ID=new TextField();
-//        login_ID.setPromptText("Enter Your ID here");
-//        
-//        Text Pass = new Text("Password : ");
-//        PasswordField passwd=new PasswordField();
-//        passwd.setPromptText("Enter Your Password here");
-        
+       
         Button VR = new Button("View Requests");
         Button VE = new Button("View Equipments");
         Button VT = new Button("View Trainers");
@@ -62,10 +58,10 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
 	        		
-        		V_R = new ViewRequest(M1);
-        		V_R.R = V_R;
-        		V_R.start(primaryStage);
-        		
+           V_R = new ViewRequest(M1,req);
+           V_R.R = V_R;
+           V_R.start(primaryStage);
+        			
         			
         	}
         });
@@ -74,8 +70,9 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
         		V_E = new ViewEquip(M1);
-        		V_E.E = V_E;
-        		V_E.start(primaryStage);
+                V_E.E = V_E;
+                V_E.start(primaryStage);
+        		
         		
         			
         	}
@@ -85,8 +82,8 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
         		V_T = new ViewTrainer(M1);
-        		V_T.T= V_T;
-        		V_T.start(primaryStage);
+                V_T.T= V_T;
+                V_T.start(primaryStage);
         	}
         });
         
@@ -94,8 +91,8 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
         		V_C = new ViewCustomer(M1);
-        		V_C.C = V_C;
-        		V_C.start(primaryStage);
+                V_C.C = V_C;
+                V_C.start(primaryStage);
         	}
         });
         
@@ -103,9 +100,8 @@ public class Manage1 extends Application{
         	public void handle (MouseEvent event)
         	{
         		MY = new Modify(M1);
-        		MY.my = MY;
-        		MY.start(primaryStage);
-        			
+                MY.my = MY;
+                MY.start(primaryStage);	
         	}
         });
         
@@ -149,7 +145,7 @@ public class Manage1 extends Application{
    */ 
     public static void main(String[] args) {
    
-    	M1 = new Manage1(m);
+    	
         launch(args);
     }
     

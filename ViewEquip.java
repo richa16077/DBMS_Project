@@ -24,7 +24,6 @@ public class ViewEquip extends Application{
 	static Manage1 M1;
 	static ViewEquip E;
 	static submitE SE;
-	
 	public ViewEquip(Manage1 M1)
 	{
 		this.M1 = M1;
@@ -47,8 +46,8 @@ public class ViewEquip extends Application{
         	public void handle (MouseEvent event)
         	{
 	        		SE = new submitE(E);
-	        		SE.se = SE;
-	        		SE.start(primaryStage);
+                    SE.se = SE;
+                    SE.start(primaryStage); 
 
         	}
         });

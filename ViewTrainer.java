@@ -17,21 +17,20 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.util.Optional;
-
+import java.sql.*;
 
 public class ViewTrainer extends Application{
 
 	static Manage1 M1;
 	static ViewTrainer T;
 	static submitT ST;
-	
 	public ViewTrainer(Manage1 M1)
-	{
+	{    
 		this.M1 = M1;
 	}
 	
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws SQLException  {
    	 GridPane root = new GridPane(); 
         root.setPadding(new Insets(20, 20, 15, 15));
         root.setVgap(5); 
@@ -46,9 +45,8 @@ public class ViewTrainer extends Application{
        Submit.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-	        	ST = new submitT(T);
-	        	ST.st = ST;
-	        	ST.start(primaryStage);
+
+
        	}
        });
        
@@ -76,8 +74,13 @@ public class ViewTrainer extends Application{
        TID.setOnMouseClicked(new EventHandler<MouseEvent>(){
        	public void handle (MouseEvent event)
        	{
-	        		
+	        	try{
+                        ST = new submitT(T,tid.getText());
+                  ST.st = ST;
+                  ST.start(primaryStage);}            
+                  catch(SQLException e){
 
+                  }
        	}
        });
        
@@ -85,7 +88,14 @@ public class ViewTrainer extends Application{
        	public void handle (MouseEvent event)
        	{
        		
-       			
+       	try{
+                  ST = new submitT(T);
+                  ST.st = ST;
+                  ST.start(primaryStage);
+            }
+            catch(SQLException e){
+
+                  }
        	}
        });
        
@@ -93,7 +103,14 @@ public class ViewTrainer extends Application{
        	public void handle (MouseEvent event)
        	{
        		
-       			
+       		 try{
+                  ST = new submitT(T,"pkg");
+                  ST.st = ST;
+                  ST.start(primaryStage);
+            }
+            catch(SQLException e){
+
+                  }
        	}
        });
          
